@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-size-tiny: clamp(8px, 1.9vw, 10px);
+  --font-size-mini: 14px;
+  --font-size-logotext: 45px;
+  --font-size-mainbutton: calc(
+    var(--font-size-logotext) / 2
+  ); /* Derived variable as half the logo size */
+  --font-size-primaryheader: 30px;
+  --font-size-secondayheader: 23px;
+  --font-size-footertext: 16px;
+  --font-size-restaurantext: 37px;
+
+  --rowgap: 7vw;
+
+  /* --font-size-overmedium: 1.62vw ; */
+  --font-size-medium: 1.55vw;
+  --font-size-largemedium: 1.59vw;
+  --font-size-large: 22px;
+  --font-size-xxlarge: 6vw;
+}
+@media (max-width: 470px) {
+  :root {
+    --font-size-mini: 14px;
+    --font-size-small: 16px;
+    --font-size-medium: 18px;
+    --font-size-largemedium: 20px;
+    --font-size-large: 10px;
+
+    /* --font-size-xxlarge: 35px; */
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --font-size-mini: 10px;
+    --font-size-small: 15px;
+    --font-size-medium: 14px;
+    --font-size-large: 14px;
+    --font-size-primaryheader: 23px;
+    --font-size-secondayheader: 14px;
+    --font-size-footertext: 12px;
+    --font-size-restaurantext: 30px;
+
+    --rowgap: 13vw;
+  }
+  .cartbox {
+    left: 50%;
+    transform: translate(-50%, 0);
+  }
+  .promptclass {
+    /* mx-auto w-[30%] py-0 mt-[-30px] */
+    margin: 0 auto;
+    width: 95%;
+    margin-top: 5px;
+  }
+}
+.restaurant-shadow {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.stripe-shadow {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Hide scrollbar for IE, Edge, and Firefox */
+.hide-scrollbar-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.bottomborder {
+  border-bottom: 0.1px solid #a0a09f;
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+  :root {
+    --font-size-mini: 12px;
+    --font-size-small: 16px;
+    --font-size-medium: 16px;
+    --font-size-large: 22px;
+    --font-size-primaryheader: 25px;
+    --font-size-secondayheader: 20px;
+    --rowgap: 10vw;
+    --font-size-footertext: 14px;
+  }
+  .promptclass {
+    /* mx-auto w-[30%] py-0 mt-[-30px] */
+    margin: 0 auto;
+    /* width: 500px; */
+    margin-top: 5px;
+  }
+}
+
+/* @keyframes scaleUp {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+} */
+.cool-button {
+  transition: transform 0.2s ease-in-out;
+}
+/* Apply the animations on hover and active states */
+.cool-button:hover {
+  transform: scale(1.1); /* Scale up on hover */
+}
+
+.cool-button:active {
+  transform: scale(0.9); /* Optional: Scale down slightly when active */
+}
+.cool-s-button {
+  transition: transform 0.18s ease-in-out;
+}
+/* Apply the animations on hover and active states */
+.cool-s-button:hover {
+  transform: scale(1.03); /* Scale up on hover */
+}
+
+.cool-s-button:active {
+  transform: scale(0.97); /* Optional: Scale down slightly when active */
+}
+.large-button {
+  transition: transform 0.15s ease-in-out;
+}
+/* Apply the animations on hover and active states */
+.large-button:hover {
+  transform: scale(1.05); /* Scale up on hover */
+}
+
+.large-button:active {
+  transform: scale(0.95); /* Optional: Scale down slightly when active */
+}
+@media (min-width: 1201px) {
+  :root {
+    --font-size-mini: 14px;
+    --font-size-small: 16px;
+    --font-size-medium: 18px;
+    --font-size-large: 22px;
+    --font-size-xxlarge: 75px;
+  }
+}
+.shadowbutton {
+  box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Hide the scrollbar for Webkit-based browsers (Chrome, Safari) */
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.blob {
+  height: 250px;
+  width: 270px;
+  border-radius: 58% 43% 33% 64% / 50% 38% 53% 50%;
+  background: #f5f5dc;
+  border: 0.1px solid black;
+  /* box-shadow: inset 6px 33px 20px 0 #c9c9c9, inset 20px 80px 15px 0 #e0e0e0, 10px 20px 20px 0px #c9c9c9; */
+}
+
+.blurred-div {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: blur(10px); /* Adjust blur amount */
+  z-index: -1;
+  transform: scale(1.1); /* Optional: Zoom in slightly to hide edges */
+}
+.unselectable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.centerX {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+.centerXY {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.centerXYabs{
+  position:absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+@keyframes shake {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-15px);
+  }
+  60% {
+    transform: translateY(-7px);
+  }
+}
+.shake {
+  animation: shake 1s; /* duration of the animation */
+  animation-iteration-count: infinite; /* number of times the animation should repeat */
+}
+.removefocus:focus {
+  border: 0px;
+  outline: 0px;
+}
