@@ -11,7 +11,7 @@ import Add from "../../public/add.png";
 import CheckoutList, { RestaurantName } from "../_components/checkoutlist";
 import { LargeSummary, SmallSummary } from "../_components/summary";
 import { getRestaurants, getSingleRestaurant } from "@/_lib/data-service";
-import UserLayout from "../_components/UserLayout";
+import UserLayout from "../UserLayout";
 
 const Inter_font = Inter({
   subsets: ["latin"],

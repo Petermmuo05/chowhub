@@ -1,18 +1,21 @@
 import NextTopLoader from "nextjs-toploader";
-import Headerdiv from "./headerbox";
+import Headerdiv from "./_components/headerbox";
 import Link from "next/link";
-import { Inter_font, Irish } from "../page";
-import ProfileMenu from "./profile";
-import Blurdiv from "./blurdiv";
+import { Inter_font, Irish } from "./page";
+import ProfileMenu from "./_components/profile";
+import Blurdiv from "./_components/blurdiv";
 import { Children } from "react";
-import AdSection from "./adsection";
-import Footer from "./footerpart";
-import Logo from "../icon.png";
-import Rider from "../../public/rider.png";
-import Partners from "../../public/partners.png";
-import UserMenu from "./usermenu";
+import AdSection from "./_components/adsection";
+import Footer from "./_components/footerpart";
+import Logo from "./icon.png";
+import Rider from "../public/rider.png";
+import Partners from "../public/partners.png";
+import UserMenu from "./_components/usermenu";
+import { auth } from "@/_lib/auth";
 
-export default function UserLayout({ children }) {
+export default async function UserLayout({ children }) {
+  const session = await auth();
+  console.log(session)
   return (
     <div className="flex flex-col min-h-[100vh] bg-[#FFFDD0]  w-full">
       <NextTopLoader color="#FF8C00" height={3} showSpinner={false} />
@@ -28,7 +31,7 @@ export default function UserLayout({ children }) {
           >
             Get Started
           </div> */}
-        <ProfileMenu/>
+        <ProfileMenu session={session}/>
       </Headerdiv>
       <div className="mt-24 max-sm:mt-[70px] flex-1 w-[83%] max-lg:w-[90%] mx-auto">
         {children}

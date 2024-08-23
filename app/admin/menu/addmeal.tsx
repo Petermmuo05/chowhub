@@ -10,7 +10,7 @@ export default function AddMeal() {
       <span className="font-bold text-[26px]">Menu</span>
       <div
         onClick={() =>
-          setMealFormData({ name: "", price: "", description: "" })
+          setMealFormData({ name: "", price: "", description: "", id:"" })
         }
         className="px-5 py-1 bg-[#FFFDD0] text-[#32CD32] cool-button font-bold text-[12px] rounded-xl items-center flex flex-row justify-center"
       >

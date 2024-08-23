@@ -4,13 +4,12 @@ import Categories from "../_components/categories.js";
 import Poster from "../_components/poster.tsx";
 import MainImage from "../../public/homepageimage.png";
 import Cooldata from "../_components/cooldata.js";
-import UserLayout from "../_components/UserLayout.tsx";
+import UserLayout from "../UserLayout.tsx";
 
 function AllCategories() {
   return (
     <UserLayout>
       <div className="w-full ">
-        
         <Poster img={MainImage} Inter_font={Inter_font}>
           {" "}
           <p className={`${Kaisei.className} text-[#333333] text-xxlarge `}>

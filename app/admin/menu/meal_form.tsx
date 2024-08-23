@@ -8,13 +8,14 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { deleteSingleMeal, updateMeals } from "@/_lib/actions";
 
-export default function MealForm() {
+export default function MealForm({ categories }) {
   const { setMealFormData, mealFormData, setSubMealFormData } = useApp();
   function isEmptyObject(obj) {
     return Object.keys(obj).length === 0;
   }
 
-  const { name, id, price, description, meal_image } = mealFormData;
+  const { name, id, price, description, meal_image, category_id } =
+    mealFormData;
   console.log(name, id, price, description, "The mealData");
   const {
     register,
@@ -29,8 +30,10 @@ export default function MealForm() {
       description,
       meal_image,
       file_data: "",
+      category_id,
     },
   });
+  console.log(categories);
   useEffect(() => {
     reset(mealFormData);
   }, [reset, mealFormData]);
@@ -92,10 +95,20 @@ export default function MealForm() {
                 {...register("price", { required: "Price is required" })}
               />
             </div>
+            <select
+              className="bg-poster mt-1 border-[#333333] border py-1 px-2 rounded-md"
+              {...register("category_id", { required: "Category is required" })}
+            >
+              {categories.map(({ name, id }) => (
+                <option key={id} value={id}>
+                  {name}
+                </option>
+              ))}
+            </select>
 
             <div className="flex flex-col mt-3">
               <span className="font-semibold">Meal-Image:</span>
-              <input type="file" {...register("file_data")} />
+              <input type="file" {...register("file_data")} accept=".avif" />
               <input type="text" {...register("meal_image")} hidden />
             </div>
             <span className="font-semibold mt-3">Sub-Meals:</span>

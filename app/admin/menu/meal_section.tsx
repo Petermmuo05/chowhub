@@ -9,7 +9,6 @@ import { updateSingleMeal } from "@/_lib/actions";
 export default function MealSection({ Category, MealsData, Restaurant_data }) {
   const { id, name } = Category;
 
-
   let meals_data = MealsData.filter(({ category_id }) => category_id === id);
   if (meals_data.length === 0) {
     return;
@@ -46,7 +45,7 @@ function Meal({ mealdata }) {
     >
       {" "}
       <div className="flex flex-row row-start-1 row-span-5 gap-2">
-        <div className="flex justify-center items-center  flex-1 ">
+        <div className="flex justify-center items-center  flex-1 max-w-[120px]">
           {" "}
           <div className="flex justify-center items-center flex-1 border p-2 rounded-lg">
             {" "}

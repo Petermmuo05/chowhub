@@ -19,11 +19,11 @@ function Mealsection({ font: Inter_font, Category, MealsData }) {
   console.log("meals_data", meals_data);
   return (
     <>
-        <p
-          className={`${Inter_font.className} mt-10 text-[#333333] text-[25px] max-sm:text-[22px] font-[800] `}
-        >
-          {name}
-        </p>{" "}
+      <p
+        className={`${Inter_font.className} mt-10 text-[#333333] text-[25px] max-sm:text-[22px] font-[800] `}
+      >
+        {name}
+      </p>{" "}
       <div className="grid gap-4 grid-cols-3 trans-meal:grid-cols-2 max-sm:grid-cols-2  max-800:grid-cols-1 w-full mt-5">
         {meals_data.map((data) => (
           <Meal
@@ -137,7 +137,7 @@ function Meal({ font: Inter_font, setcartdata, cartdata, mealdata }) {
     >
       {" "}
       <div className="flex flex-row row-start-1 row-span-5 gap-2">
-        <div className="flex justify-center items-center  flex-1 ">
+        <div className="flex justify-center items-center  flex-1 max-w-[120px]">
           {" "}
           <div className="flex justify-center items-center flex-1 border p-2 rounded-lg">
             {" "}

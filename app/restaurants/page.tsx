@@ -5,7 +5,7 @@ import MainImage from "../../public/homepageimage.png";
 import Cooldata from "../_components/cooldata.js";
 import { Inter_font, Kaisei } from "../page.js";
 import RestaurantPoster from "../_components/restaurant_poster.tsx";
-import UserLayout from "../_components/UserLayout.tsx";
+import UserLayout from "../UserLayout.tsx";
 
 async function AllRestaurants() {
   const Restaurant_data = await getRestaurants();

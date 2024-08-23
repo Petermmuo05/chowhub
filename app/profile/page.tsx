@@ -5,7 +5,7 @@ import Mail from "../../public/mail.svg";
 import Phone from "../../public/phone.svg";
 
 import Cancel from "../../public/cancel.svg";
-import UserLayout from "../_components/UserLayout";
+import UserLayout from "../UserLayout";
 
 export default function ProfilePage() {
   return (

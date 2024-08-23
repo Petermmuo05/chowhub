@@ -8,13 +8,12 @@ import { getAllOrders } from "@/_lib/data-service";
 import StatusSection from "../_components/statussection";
 import OrderSummary from "../_components/ordersummary";
 import OrderRows from "../_components/orderRow";
-import UserLayout from "../_components/UserLayout";
+import UserLayout from "../UserLayout";
 
 export const revalidate = 250; // revalidate at most every four minutes and 10 seconds
 export default async function OrderInfo() {
   const orderData = await getAllOrders();
   console.log(orderData, "orderdata");
-
 
   // const { cartdata } = useApp();
   // console.log(cartdata);

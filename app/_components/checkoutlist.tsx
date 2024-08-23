@@ -6,6 +6,9 @@ import Add from "../../public/add.png";
 import { useApp } from "./appcontext.tsx";
 import { updatecart } from "./cartsection";
 import { getSingleRestaurant } from "@/_lib/data-service";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import CartWoman from "../../public/cartwoman.png";
 
 export default function CheckoutList() {
   const { cartdata, setcartdata, checkOutKitchenId } = useApp();
@@ -13,23 +16,47 @@ export default function CheckoutList() {
     ({ kitchen_id }) => kitchen_id === Number(checkOutKitchenId)
   );
   const cartlength = checkoutCart.length;
+  const router = useRouter();
 
+  useEffect(
+    function () {
+      if (!cartlength || cartlength === 0) {
+        router.push("/");
+      }
+    },
+    [cartlength, router]
+  );
   return (
-    <div className="flex mt-10 max-sm:mt-3 flex-col bg-poster px-3 rounded-lg gap-2 py-3 items-start">
+    cartlength > 0 && (
+      <div className="flex mt-10 max-sm:mt-3 flex-col bg-poster px-3 rounded-lg gap-2 py-3 items-start">
+        <Image
+          src={Products}
+          alt="products"
+          className="w-10 h-10 max-sm:w-7 max-sm:h-7"
+        />{" "}
+        {checkoutCart.map((value, index) => (
+          <CheckoutItem
+            key={index}
+            index={index}
+            setcartdata={setcartdata}
+            itemData={value}
+            cartlength={cartlength}
+          />
+        ))}
+      </div>
+    )
+  );
+}
+
+function NoCart() {
+  return (
+    <div className="flex flex-row items-center justify-center ">
+      <div className="">You have to add items to your cart</div>
       <Image
-        src={Products}
-        alt="products"
+        src={CartWoman}
+        alt="nocart"
         className="w-10 h-10 max-sm:w-7 max-sm:h-7"
       />{" "}
-      {checkoutCart.map((value, index) => (
-        <CheckoutItem
-          key={index}
-          index={index}
-          setcartdata={setcartdata}
-          itemData={value}
-          cartlength={cartlength}
-        />
-      ))}
     </div>
   );
 }

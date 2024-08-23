@@ -37,7 +37,7 @@ export default async function Menu() {
           ))}
         </div>
 
-        <MealForm />
+        <MealForm categories={Categories_data}/>
         <SubMealForm />
       </div>
     </AdminLayout>

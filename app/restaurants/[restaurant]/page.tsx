@@ -16,7 +16,7 @@ import {
   getRestaurants,
   getSingleRestaurant,
 } from "@/_lib/data-service.tsx";
-import UserLayout from "@/app/_components/UserLayout";
+import UserLayout from "@/app/UserLayout";
 
 export const revalidate = 250; // revalidate at most every hour
 export const Inter_font = Inter({
@@ -31,6 +31,7 @@ async function Restaurant({ params }) {
   if (typeof kitchenId !== "string" || !/^\d+$/.test(kitchenId)) {
     return <div>Not Found</div>;
   }
+
   const Restaurant_data = await getSingleRestaurant(Number(kitchenId));
   if (Restaurant_data.length !== 1) {
     return <div>Not Found</div>;

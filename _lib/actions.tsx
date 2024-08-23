@@ -1,8 +1,10 @@
 "use server";
 import { revalidatePath } from "next/cache";
 import { supabase } from "./supabase";
+import { v4 as uuidv4 } from "uuid";
 
 export async function updateMeals(updateData) {
+  const userId = 1;
   console.log(updateData);
   console.log("updatedata", updateData.get("file_data"));
   const file = updateData.get("file_data");
@@ -11,10 +13,11 @@ export async function updateMeals(updateData) {
     console.log("a file was selected");
     isUrl = false;
   }
+  console.log(isUrl, "isUrl");
   let formdata: any = {};
   updateData.forEach((value, key) => (formdata[key] = value));
   console.log(formdata, "formdata");
-  const { name, description, price, meal_image } = formdata;
+  const { name, description, price, meal_image, category_id } = formdata;
 
   // const image =
   //   typeof updateData.meal_image === "string"
@@ -26,29 +29,41 @@ export async function updateMeals(updateData) {
 
   const supabaseUrl = "https://ijlsuhslxonjiszlebem.supabase.co";
   console.log(formdata.meal_image);
-  // const hasImagePath = formdata.meal_image?.startsWith?.(supabaseUrl);
-  // console.log(hasImagePath, "hasImagePath");
-  const imageName = `${Math.random()}-${file?.name}`.replaceAll("/", "");
+
+  const imageName = `${uuidv4()}-${file?.name}`.replaceAll("/", "");
   console.log(imageName, "imageName");
   const imagePath = isUrl
     ? formdata.meal_image
     : `${supabaseUrl}/storage/v1/object/public/Food_images/${imageName}`;
   console.log(imagePath, "imagePath");
   //1. Create/edit
-  // let query = supabase.from("Meals");
   let query;
   //a create
-  if (!id)
-    query = supabase
-      .from("Meals")
-      .insert([{ name, description, price, meal_image: imagePath , allow_order:false}]);//add more properties cuz it doesn't work yet
+  console.log(id && "This already exists");
+  if (!id) {
+    console.log("inserting data");
+    query = supabase.from("Meals").insert([
+      {
+        name,
+        description,
+        price,
+        meal_image: imagePath,
+        allow_order: false,
+        category_id,
+        kitchen_id: userId,
+      },
+    ]);
+  }
+  //add more properties cuz it doesn't work yet
 
-  if (id)
+  if (id) {
+    console.log("updating data");
+
     query = supabase
       .from("Meals")
-      .update({ name, description, price, meal_image: imagePath })
+      .update({ name, description, price, meal_image: imagePath, category_id })
       .eq("id", id);
-
+  }
   const { data, error } = await query.select().single();
   console.log(data, "data");
 
@@ -58,10 +73,16 @@ export async function updateMeals(updateData) {
   }
 
   if (!isUrl) {
+    console.log("uploading file");
     const { error: storageError } = await supabase.storage
       .from("Food_images")
-      .upload(imageName, file);
+      .upload(imageName, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
     if (storageError) {
+      console.log("There was a storage error");
+      console.error(storageError);
       await supabase.from("Food_images").delete().eq("id", data.id);
     }
   }

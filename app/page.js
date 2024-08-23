@@ -12,7 +12,7 @@ import Cooldata from "./_components/cooldata";
 import Restaurantsection from "./_components/restaurantsectiont";
 import Poster from "./_components/poster.tsx";
 import Categories from "./_components/categories";
-import UserLayout from "./_components/UserLayout.tsx";
+import UserLayout from "./UserLayout.tsx";
 
 export const revalidate = 600;
 
