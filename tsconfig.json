@@ -1,10 +1,7 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "typeRoots": ["./types", "./node_modules/@types"],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowImportingTsExtensions": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,20 +20,20 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "app/_components/cartsection.tsx", "app/_components/appcontext.tsx", "app/restaurants/[restaurant]/page.tsx", "app/admin/orders"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.tsx",
+    "app/_components/cartsection.tsx",
+    "app/_components/appcontext.tsx",
+    "app/restaurants/[restaurant]/page.tsx",
+    "app/admin/orders"
+  ],
+  "exclude": ["node_modules"]
 }
 // {
 //     "compilerOptions": {

@@ -3,8 +3,14 @@ import { Inter_font } from "@/app/page";
 import FilterBar from "./filterbar";
 import SearchBar from "./searchbar";
 import OrdersTable from "@/app/_components/orderstable";
+import { getOrders } from "@/_lib/data-service";
+import { auth } from "@/_lib/auth";
 
-export default function Orders() {
+export default async function Orders() {
+  const session = await auth();
+  const OrderData = await getOrders(session.user.admin_id);
+  // console.log(OrderData)
+
   return (
     <AdminLayout>
       <div
@@ -27,7 +33,7 @@ export default function Orders() {
         </div>
         <FilterBar />
         <SearchBar />
-        <OrdersTable/>
+        <OrdersTable OrderData={OrderData} />
       </div>
     </AdminLayout>
   );

@@ -12,7 +12,9 @@ function Mealsection({ font: Inter_font, Category, MealsData }) {
   const { id, name } = Category;
   const { cartdata, setcartdata } = useApp();
   console.log(MealsData);
-  let meals_data = MealsData.filter(({ category_id }) => category_id === id);
+  let meals_data = MealsData.filter(
+    ({ category_id, allow_order }) => category_id === id && allow_order
+  );
   if (meals_data.length === 0) {
     return;
   }
@@ -34,76 +36,6 @@ function Mealsection({ font: Inter_font, Category, MealsData }) {
             mealdata={data}
           />
         ))}
-        {/* <Meal
-          font={Inter_font}
-          setcartdata={setcartdata}
-          cartdata={cartdata}
-          mealdata={{
-            id: 1,
-            name: "Shrimps Jollof Rice",
-            price: "2000",
-            meal_image:
-              "https://ijlsuhslxonjiszlebem.supabase.co/storage/v1/object/public/Food_images/jollofrice.jpeg",
-            description:
-              "Grilled beef heavily marinated in olive oil, vinegar, lemon juice, warm spices and sausage",
-          }}
-        />
-        <Meal
-          font={Inter_font}
-          setcartdata={setcartdata}
-          cartdata={cartdata}
-          mealdata={{
-            id: 2,
-            name: "Shrimps Fried Rice",
-            price: "1500",
-            meal_image:
-              "https://ijlsuhslxonjiszlebem.supabase.co/storage/v1/object/public/Food_images/jollofrice.jpeg",
-            description:
-              "Grilled beef heavily marinated in olive oil, vinegar, lemon juice, warm spices and sausage",
-          }}
-        />
-        <Meal
-          font={Inter_font}
-          setcartdata={setcartdata}
-          cartdata={cartdata}
-          mealdata={{
-            id: 3,
-            name: "Chicken Fried Rice",
-            price: "2500",
-            meal_image:
-              "https://ijlsuhslxonjiszlebem.supabase.co/storage/v1/object/public/Food_images/jollofrice.jpeg",
-            description:
-              "Grilled beef heavily marinated in olive oil, vinegar, lemon juice, warm spices and sausage",
-          }}
-        />
-        <Meal
-          font={Inter_font}
-          setcartdata={setcartdata}
-          cartdata={cartdata}
-          mealdata={{
-            id: 4,
-            name: "Rice and Beans",
-            price: "3500",
-            meal_image:
-              "https://ijlsuhslxonjiszlebem.supabase.co/storage/v1/object/public/Food_images/jollofrice.jpeg",
-            description:
-              "Grilled beef heavily marinated in olive oil, vinegar, lemon juice, warm spices and sausage",
-          }}
-        />
-        <Meal
-          font={Inter_font}
-          setcartdata={setcartdata}
-          cartdata={cartdata}
-          mealdata={{
-            id: 5,
-            name: "Fried Chicken and Chips",
-            price: "5500",
-            meal_image:
-              "https://ijlsuhslxonjiszlebem.supabase.co/storage/v1/object/public/Food_images/jollofrice.jpeg",
-            description:
-              "Grilled beef heavily marinated in olive oil, vinegar, lemon juice, warm spices and sausage",
-          }}
-        /> */}
       </div>
     </>
   );

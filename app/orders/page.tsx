@@ -10,7 +10,7 @@ import OrderSummary from "../_components/ordersummary";
 import OrderRows from "../_components/orderRow";
 import UserLayout from "../UserLayout";
 
-export const revalidate = 250; // revalidate at most every four minutes and 10 seconds
+export const revalidate = 0; // revalidate at most every four minutes and 10 seconds
 export default async function OrderInfo() {
   const orderData = await getAllOrders();
   console.log(orderData, "orderdata");

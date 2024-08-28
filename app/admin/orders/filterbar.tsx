@@ -7,7 +7,7 @@ export default function FilterBar() {
         <span>Cooking</span>
         <span>Completed</span>
       </div>
-      <div className="w-full h-[2px] bg-poster"></div>
+      <div className="w-[320px] h-[2px] bg-poster"></div>
     </div>
   );
 }

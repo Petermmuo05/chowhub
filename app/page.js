@@ -33,11 +33,11 @@ export default async function Home() {
   const Restaurant_data = await getRestaurants();
   // const Restdata= await fetchData()
   // console.log("data",Restdata)
-  console.log("restaurant", Restaurant_data);
+  // console.log("restaurant", Restaurant_data);
   return (
     <UserLayout>
       {" "}
-      <div className=" w-full flex  flex-col ">
+      <div className={` w-full flex ${Inter_font.className}  flex-col `}>
         {/* <div className="flex bg-[#F5F5DC] px-8 py-4 max-sm:px-4 flex-row justify-center items-center w-full z-[-1]  gap-4">
           <div className="flex flex-col justify-center  gap-[1.6vw] flex-1 max-w-[600px] leading-[1.2]">
             <p className={`${Kaisei.className} text-[#333333] text-xxlarge `}>

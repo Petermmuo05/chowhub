@@ -2,9 +2,11 @@
 import { revalidatePath } from "next/cache";
 import { supabase } from "./supabase";
 import { v4 as uuidv4 } from "uuid";
+import { auth, signIn, signOut } from "./auth.ts";
 
 export async function updateMeals(updateData) {
-  const userId = 1;
+  const session = await auth();
+  const userId=session.user.admin_id;
   console.log(updateData);
   console.log("updatedata", updateData.get("file_data"));
   const file = updateData.get("file_data");
@@ -112,5 +114,54 @@ export async function deleteSingleMeal(id) {
   }
   console.log("Delete Meal Successful", data);
   revalidatePath("/admin/menu"); //revalidate the router cache
+  return data;
+}
+
+export async function signInAction() {
+  //get the provider dynamically
+
+  await signIn("google", { redirectTo: "/" });
+}
+export async function signOutAction() {
+  await signOut({ redirectTo: "/login" });
+}
+
+export async function createAppUser(newUser) {
+  const { data, error } = await supabase.from("App_Users").insert([newUser]);
+  if (error) {
+    console.error(error);
+    throw new Error("User Could not be created");
+  }
+  return data;
+}
+export async function getAppUsers() {
+  let { data: App_Users, error } = await supabase.from("App_Users").select("*");
+  if (error) {
+    console.error(error);
+    throw new Error("Could not retrieve Users");
+  }
+  return App_Users;
+}
+
+export async function updateAppUsers() {
+  const { data, error } = await supabase
+    .from("App_Users")
+    .update({ other_column: "otherValue" })
+    .eq("some_column", "someValue")
+    .select();
+  if (error) {
+    console.error(error);
+    throw new Error("Failed to update users");
+  }
+  return data;
+}
+
+export async function placeOrder(newOrder) {
+  console.log(newOrder, "This is the newOrder")
+  const { data, error } = await supabase.from("Orders").insert([newOrder]);
+  if (error) {
+    console.error(error);
+    throw new Error("Order Could not be placed");
+  }
   return data;
 }

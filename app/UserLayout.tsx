@@ -11,13 +11,14 @@ import Logo from "./icon.png";
 import Rider from "../public/rider.png";
 import Partners from "../public/partners.png";
 import UserMenu from "./_components/usermenu";
-import { auth } from "@/_lib/auth";
+import { auth } from "@/_lib/auth.ts";
 
 export default async function UserLayout({ children }) {
   const session = await auth();
-  console.log(session)
   return (
-    <div className="flex flex-col min-h-[100vh] bg-[#FFFDD0]  w-full">
+    <div
+      className={`flex ${Inter_font.className} flex-col min-h-[100vh] bg-[#FFFDD0]  w-full`}
+    >
       <NextTopLoader color="#FF8C00" height={3} showSpinner={false} />
       <Headerdiv>
         <Link
@@ -31,7 +32,7 @@ export default async function UserLayout({ children }) {
           >
             Get Started
           </div> */}
-        <ProfileMenu session={session}/>
+        <ProfileMenu session={session} />
       </Headerdiv>
       <div className="mt-24 max-sm:mt-[70px] flex-1 w-[83%] max-lg:w-[90%] mx-auto">
         {children}

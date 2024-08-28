@@ -16,6 +16,11 @@ export type Restaurant = {
   }[];
 };
 
+export function capitalizeFirstLetter(str) {
+  if (str.length === 0) return str; // Check if the string is empty
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export async function getRestaurants() {
   let { data, error } = await supabase
     .from("KitchenData")
@@ -103,7 +108,31 @@ export async function getAllOrders(): Promise<Order> {
   }
   return (data as unknown as Order) || [];
 }
+export async function getOrders(kitchen_id: number): Promise<Order> {
+  let { data, error } = await supabase
+    .from("Orders")
+    .select(
+      "id, created_at, totalprice, status, KitchenData(id, name, location),Meals(id, name, price), quantity "
+    )
+    .eq("kitchen_id", kitchen_id)
+    .order("id", { ascending: false });
+  // console.log("orders", data);
+  if (error) {
+    console.error(error);
+    throw new Error("orders could not be loaded");
+  }
+  return (data as unknown as Order) || [];
+}
 
+export async function getSingleAppUser(email) {
+  let { data: App_Users, error } = await supabase
+    .from("App_Users")
+    .select("*")
+    .eq("email", email)
+    .single();
+  //no error handling here. We handle the possibility of no guest in the sign in callback
+  return App_Users;
+}
 // export function handleNotFound() {
 //   const error = new Error('Not Found');
 //   error.statusCode = 404;

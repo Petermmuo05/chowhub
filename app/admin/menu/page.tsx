@@ -7,9 +7,11 @@ import MealForm from "./meal_form";
 import SubMealForm from "./submeal_form";
 import AddMeal from "./addmeal";
 import { getCategories, getSingleRestaurant } from "@/_lib/data-service";
+import { auth } from "@/_lib/auth";
 
 export default async function Menu() {
-  const userId = 1;
+  const session = await auth();
+  const userId = session.user.admin_id;
   const Categories_data = await getCategories();
   const Restaurant_data = await getSingleRestaurant(userId);
   //change this when you add the middleware (remove this)
@@ -37,7 +39,7 @@ export default async function Menu() {
           ))}
         </div>
 
-        <MealForm categories={Categories_data}/>
+        <MealForm categories={Categories_data} />
         <SubMealForm />
       </div>
     </AdminLayout>

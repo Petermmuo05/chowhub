@@ -5,6 +5,7 @@ import Person from "../../public/person.svg";
 import Exit from "../../public/exit.svg";
 import Link from "next/link";
 import { useApp } from "./appcontext.tsx";
+import SignOut from "../login/signOutButton.tsx";
 
 export default function UserMenu() {
   const { isMenuOpen, setisMenuOpen } = useApp();
@@ -38,14 +39,7 @@ export default function UserMenu() {
         </div>{" "}
         <Image src={Dropdown} alt="dropdown" className="w-4 h-4" />
       </Link>
-      <div className="flex flex-row items-center rounded-lg hover:bg-[#afafaf] px-2 py-2 justify-between">
-        <div className="flex-row gap-1 flex items-center">
-          <Image src={Exit} alt="bags" className="w-5 h-5" />
-
-          <span>Log Out</span>
-        </div>{" "}
-        <Image src={Dropdown} alt="dropdown" className="w-4 h-4" />
-      </div>
+      <SignOut />
     </div>
   );
 }

@@ -16,7 +16,6 @@ export default function MealForm({ categories }) {
 
   const { name, id, price, description, meal_image, category_id } =
     mealFormData;
-  console.log(name, id, price, description, "The mealData");
   const {
     register,
     handleSubmit,
@@ -33,7 +32,6 @@ export default function MealForm({ categories }) {
       category_id,
     },
   });
-  console.log(categories);
   useEffect(() => {
     reset(mealFormData);
   }, [reset, mealFormData]);

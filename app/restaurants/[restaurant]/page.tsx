@@ -18,7 +18,7 @@ import {
 } from "@/_lib/data-service.tsx";
 import UserLayout from "@/app/UserLayout";
 
-export const revalidate = 250; // revalidate at most every hour
+export const revalidate = 80; // revalidate at most every 100 secs
 export const Inter_font = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "900", "800"],
@@ -40,9 +40,9 @@ async function Restaurant({ params }) {
   const { name } = Restaurant;
   const Categories_data = await getCategories();
   const Meals_data = await getRestaurantMeals(Number(kitchenId));
-  console.log("meals", Meals_data);
+  // console.log("meals", Meals_data);
 
-  console.log("categories", Categories_data);
+  // console.log("categories", Categories_data);
   return (
     <UserLayout>
       <div className="flex items-end relative bg-[#8B4513] justify-center w-full h-[30vh] max-sm:h-[25vh] rounded-lg rounded-tr-[40px] mt-3 ">

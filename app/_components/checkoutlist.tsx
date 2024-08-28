@@ -8,6 +8,7 @@ import { updatecart } from "./cartsection";
 import { getSingleRestaurant } from "@/_lib/data-service";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Checkoutpic from "../../public/checkout.svg";
 import CartWoman from "../../public/cartwoman.png";
 
 export default function CheckoutList() {
@@ -16,18 +17,9 @@ export default function CheckoutList() {
     ({ kitchen_id }) => kitchen_id === Number(checkOutKitchenId)
   );
   const cartlength = checkoutCart.length;
-  const router = useRouter();
 
-  useEffect(
-    function () {
-      if (!cartlength || cartlength === 0) {
-        router.push("/");
-      }
-    },
-    [cartlength, router]
-  );
   return (
-    cartlength > 0 && (
+    <>
       <div className="flex mt-10 max-sm:mt-3 flex-col bg-poster px-3 rounded-lg gap-2 py-3 items-start">
         <Image
           src={Products}
@@ -44,20 +36,11 @@ export default function CheckoutList() {
           />
         ))}
       </div>
-    )
-  );
-}
-
-function NoCart() {
-  return (
-    <div className="flex flex-row items-center justify-center ">
-      <div className="">You have to add items to your cart</div>
-      <Image
-        src={CartWoman}
-        alt="nocart"
-        className="w-10 h-10 max-sm:w-7 max-sm:h-7"
-      />{" "}
-    </div>
+      <div className="bg-[#ffea74] w-full flex flex-col mt-3 px-3 rounded-lg border  border-[#FF4D00] items-start py-2 ">
+        <span className="font-bold text-[14px]">55-65 mins</span>
+        <span className="text-[12px]">As soon as possible</span>
+      </div>
+    </>
   );
 }
 
@@ -99,24 +82,5 @@ function CheckoutItem({ setcartdata, itemData, index, cartlength }) {
         </span>
       </div>
     </div>
-  );
-}
-
-export function RestaurantName({ Inter_font, data }) {
-  const { checkOutKitchenId } = useApp();
-  console.log("checkOutKitchenId", checkOutKitchenId);
-  const Restaurant_data = data.filter(
-    ({ id }) => id === Number(checkOutKitchenId)
-  );
-  if (Restaurant_data.length !== 1) {
-    return <div>Not Found</div>;
-  }
-  const restaurantName = Restaurant_data[0].name;
-  return (
-    <span
-      className={`${Inter_font.className} font-[600] max-sm:text-[25px] text-[35px]`}
-    >
-      {restaurantName}
-    </span>
   );
 }

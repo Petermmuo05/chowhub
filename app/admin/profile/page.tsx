@@ -6,13 +6,14 @@ import Phone from "../../../public/phone.svg";
 
 import Cancel from "../../../public/cancel.svg";
 import AdminLayout from "../AdminLayout";
+import SignOut from "@/app/login/signOutButton";
 
 export default function ProfilePage() {
   return (
     <AdminLayout>
       {" "}
       <div className="flex flex-col w-full ">
-        <div className="flex-row gap-1 flex max-sm:mt-4 items-center">
+        <div className="flex-row gap-1 flex max-sm:mt-4 mt-5 items-center">
           <Image src={Person} alt="person" className="w-8 h-8" />
           <span className={` font-[600] max-sm:text-[22px]  text-[30px]`}>
             Account Profile
@@ -22,6 +23,7 @@ export default function ProfilePage() {
           <ProfileItem pic={Face} title="Name" value="Mmuo Peter" />
           <ProfileItem pic={Mail} title="Email" value="petermmuo05@gmail.com" />
           <ProfileItem pic={Phone} title="Phone" value="08131199559" />
+          <SignOut />
         </div>
       </div>
     </AdminLayout>
