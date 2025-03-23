@@ -16,6 +16,7 @@ const authConfig = {
         const supabaseUser = await getSingleAppUser(user.email);
         token.id = supabaseUser.id; // Store user ID in the token
         token.role = supabaseUser.role; // Store role in the token (optional)
+        console.log(token, user, "The token")
         if (supabaseUser.role === "admin") {
           token.admin_id = supabaseUser.admin_id;
         }

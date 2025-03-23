@@ -1,8 +1,35 @@
-import { capitalizeFirstLetter } from "@/_lib/data-service";
+"use client";
+// import { capitalizeFirstLetter } from "@/_lib/data-service";
 
-export default function AdminStatus({ status }: { status: string }) {
+export default function AdminStatus({ status, handleClick }) {
+  let color;
+  let text = "text-[#5f6368]";
+  switch (status) {
+    case "placed":
+      color = "bg-[orange]";
+      break;
+    case "cooking":
+      color = "bg-[yellow]";
+      break;
+    case "ready":
+      color = "bg-[#00b300]";
+      break;
+    case "fulfilled":
+      color = "bg-[#004d00]"; // or some other default value if status is unknown
+      text = "text-white";
+      break;
+    case "cancelled":
+      color = "bg-[red]";
+      text = "text-white";
+      break;
+  }
+
+  //trying to add color
   return (
-    <div className="flex flex-row text-[14px] max-sm:text-[11px] trans-range:text-[14px] py-1 items-center px-2 gap-1 bg-orange-500  rounded-lg">
+    <div
+      className={`flex flex-row text-[14px] max-sm:text-[11px] trans-range:text-[14px] py-1 items-center ${color} hover:opacity-90  px-2 gap-1   rounded-lg`}
+      onClick={handleClick}
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="25px"
@@ -39,7 +66,11 @@ export default function AdminStatus({ status }: { status: string }) {
       >
         <path d="m424-318 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h168q13-36 43.5-58t68.5-22q38 0 68.5 22t43.5 58h168q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm280-590q13 0 21.5-8.5T510-820q0-13-8.5-21.5T480-850q-13 0-21.5 8.5T450-820q0 13 8.5 21.5T480-790ZM200-200v-560 560Z" />
       </svg>
-      <span className="text-[#5f6368]">{capitalizeFirstLetter(status)}</span>
+      <span className={`${text}`}>{capitalizeFirstLetter(status)}</span>
     </div>
   );
+}
+export function capitalizeFirstLetter(str) {
+  if (str.length === 0) return str; // Check if the string is empty
+  return str.charAt(0).toUpperCase() + str.slice(1);
 }

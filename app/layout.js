@@ -1,16 +1,11 @@
-import Footer from "./_components/footerpart";
-import Headerdiv from "./_components/headerbox";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v13-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 import "./_styles/globals.css";
 import { Inter_font, Irish } from "./page";
-import Logo from "./icon.png";
-import Rider from "../public/rider.png";
-import Partners from "../public/partners.png";
-import AdSection from "./_components/adsection";
+
 import { AppProvider } from "./_components/appcontext.tsx";
-import ProfileMenu from "./_components/profile";
-import Blurdiv from "./_components/blurdiv";
-import Link from "next/link";
-import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "ChowHub",
@@ -21,7 +16,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="unselectable">
-        <AppProvider>{children}</AppProvider>
+        <AppRouterCacheProvider>
+          <ThemeProvider theme={theme}>
+            <AppProvider>
+              {children}
+
+            </AppProvider>
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

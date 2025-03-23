@@ -9,6 +9,11 @@ function AppProvider({ children }) {
   const [isMenuOpen, setisMenuOpen] = useState(false);
 
   const [isSideBar, setSideBar] = useState(false);
+  const [statusFilter, setStatusFilter] = useState(null);
+  const [searchFilter, setSearchFilter] = useState(null);
+  const [dateFilter, setDateFilter] = useState(null);
+  const [orderSearchInput, setOrderSearchInput] = useState("");
+  const [mealFilter, setMealFilter] = useState(null);
 
   const [summaryData, setSummaryData] = useState({});
   const [mealFormData, setMealFormData] = useState({});
@@ -27,10 +32,19 @@ function AppProvider({ children }) {
         setSummaryData,
         isSideBar,
         setSideBar,
-
+        statusFilter,
+        setStatusFilter,
+        dateFilter,
+        setDateFilter,
+        searchFilter,
+        setSearchFilter,
+        mealFilter,
+        setMealFilter,
         mealFormData,
         setMealFormData,
         subMealFormData,
+        orderSearchInput,
+        setOrderSearchInput,
         setSubMealFormData,
       }}
     >

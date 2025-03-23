@@ -14,11 +14,45 @@ export type Restaurant = {
     description: string;
     allow_order: boolean;
   }[];
+  SubMeal: {
+    id: number;
+    name: string;
+    price: string;
+    meal_image: string;
+    minQty: number;
+    kitchen_id: number;
+    meal_id: number;
+  }[];
 };
+
+export type Order = {
+  id: number;
+  created_at: any;
+  totalprice: number;
+  status: any;
+  KitchenData: {
+    id: number;
+    name: string;
+    location: string;
+  };
+  Meals: {
+    id: number;
+    name: string;
+    price: string;
+  };
+  App_Users: {
+    full_name: string;
+    id: number;
+  };
+  quantity: number;
+}[];
 
 export function capitalizeFirstLetter(str) {
   if (str.length === 0) return str; // Check if the string is empty
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+export function slicestring(str, len) {
+  return `${str.slice(0, len)}${str.length >= len ? "..." : ""}`;
 }
 
 export async function getRestaurants() {
@@ -65,7 +99,7 @@ export async function getSingleRestaurant(restaurant_id: number) {
   let { data, error } = await supabase
     .from("KitchenData")
     .select(
-      "id, created_at, name, restaurant_image, Meals(id, name, price, allow_order, meal_image, category_id, description)"
+      "id, created_at, name, restaurant_image, Meals(id, name, price, allow_order, meal_image, category_id, description,SubMeal(id, name,price,minQty,kitchen_id,meal_id, meal_image))"
     )
     .eq("id", restaurant_id);
   // console.log("categories", data);
@@ -76,31 +110,14 @@ export async function getSingleRestaurant(restaurant_id: number) {
   return data as unknown as Restaurant[];
 }
 
-export type Order = {
-  id: number;
-  created_at: any;
-  totalprice: number;
-  status: any;
-  KitchenData: {
-    id: number;
-    name: string;
-    location: string;
-  };
-  Meals: {
-    id: number;
-    name: string;
-    price: string;
-  };
-  quantity: number;
-}[];
-
-export async function getAllOrders(): Promise<Order> {
+export async function getAllOrders(Userid: string): Promise<Order> {
   let { data, error } = await supabase
     .from("Orders")
     .select(
       "id, created_at, totalprice, status, KitchenData(id, name, location),Meals(id, name, price), quantity "
     )
-    .order("id", { ascending: false });
+    .order("id", { ascending: false })
+    .eq("user_id", Userid);
   // console.log("orders", data);
   if (error) {
     console.error(error);
@@ -109,10 +126,15 @@ export async function getAllOrders(): Promise<Order> {
   return (data as unknown as Order) || [];
 }
 export async function getOrders(kitchen_id: number): Promise<Order> {
+  if (!kitchen_id || typeof kitchen_id !== "number") {
+    console.log(kitchen_id)
+    throw new Error("Invalid kitchen_id provided");
+  }
+
   let { data, error } = await supabase
     .from("Orders")
     .select(
-      "id, created_at, totalprice, status, KitchenData(id, name, location),Meals(id, name, price), quantity "
+      "id, created_at, totalprice, status, KitchenData(id, name, location),Meals(id, name, price, meal_image), quantity,App_Users(id,full_name) "
     )
     .eq("kitchen_id", kitchen_id)
     .order("id", { ascending: false });
@@ -133,24 +155,3 @@ export async function getSingleAppUser(email) {
   //no error handling here. We handle the possibility of no guest in the sign in callback
   return App_Users;
 }
-// export function handleNotFound() {
-//   const error = new Error('Not Found');
-//   error.statusCode = 404;
-//   throw error;
-// }
-// console.log("stfu",supabase.from("Restaurant").select("*"))
-// export const fetchData = async () => {
-//   const response = await fetch(
-//     "https://ijlsuhslxonjiszlebem.supabase.co/rest/v1/Restaurant",
-//     {
-//       headers: {
-//         Authorization:
-//           "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqbHN1aHNseG9uamlzemxlYmVtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTMwNTI4MiwiZXhwIjoyMDM0ODgxMjgyfQ.ZGtqNvaPS9nd2Hmhx53jkj37kfs8wEvfu-veiasdz40",
-//         apikey:
-//           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlqbHN1aHNseG9uamlzemxlYmVtIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxOTMwNTI4MiwiZXhwIjoyMDM0ODgxMjgyfQ.ZGtqNvaPS9nd2Hmhx53jkj37kfs8wEvfu-veiasdz40",
-//       },
-//     }
-//   );
-//   const data = await response.json();
-//  return (data);
-// };

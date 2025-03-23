@@ -17,6 +17,7 @@ import { auth } from "@/_lib/auth";
 export default async function AdminDashboard() {
   const userId = 1;
   const session = await auth();
+  console.log(session, "session")
   const RestaurantData = await getSingleRestaurant(userId);
   const OrderData = await getOrders(session.user.admin_id);
   return (
@@ -26,8 +27,7 @@ export default async function AdminDashboard() {
       >
         <span className="font-bold mb-1">Analytics</span>
         <DashboardAnalytics OrderData={OrderData} />
-        <DashboardMeal />
-
+        <DashboardMeal orderData={OrderData} />
         <div className="flex flex-row w-full h-10 mt-3 border items-center px-3 justify-between border-poster rounded-md">
           <span className="font-bold max-sm:text-[14px]">Recent Orders</span>
           {/* <div className="flex flex-row items-center">
@@ -45,7 +45,7 @@ export default async function AdminDashboard() {
             </div>
           </div> */}
         </div>
-        <OrdersTable OrderData={OrderData.slice(0, 4)} />
+        <OrdersTable RawOrderData={OrderData.slice(0, 4)} />
       </div>
     </AdminLayout>
   );

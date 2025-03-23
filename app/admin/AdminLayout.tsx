@@ -13,6 +13,7 @@ import Image from "next/image";
 import Sidebar from "./sidebar";
 import MobileSidebar from "./mobileSidebar";
 import HeaderIcons from "./headerIcons";
+import { Toaster } from "react-hot-toast";
 
 export default function AdminLayout({ children }) {
   return (
@@ -35,6 +36,31 @@ export default function AdminLayout({ children }) {
           className={`w-full h-full ${Inter_font.className} flex flex-col pt-[53px] max-sm:pt-[38px] overflow-y-auto gap-1 px-5 max-sm:px-2 `}
         >
           {children}
+          <Toaster
+            position="top-center"
+            reverseOrder={false}
+            gutter={8}
+            containerClassName=""
+            containerStyle={{}}
+            toastOptions={{
+              // Define default options
+              className: "",
+              duration: 5000,
+              style: {
+                background: "#363636",
+                color: "#fff",
+              },
+
+              // Default options for specific types
+              success: {
+                duration: 3000,
+                style: {
+                  background: "#f5f5dc",
+                  color: "green", // Customize the toast color
+                },
+              },
+            }}
+          />
         </div>
       </div>
     </div>

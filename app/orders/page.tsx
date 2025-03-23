@@ -9,10 +9,12 @@ import StatusSection from "../_components/statussection";
 import OrderSummary from "../_components/ordersummary";
 import OrderRows from "../_components/orderRow";
 import UserLayout from "../UserLayout";
+import { auth } from "@/_lib/auth";
 
 export const revalidate = 0; // revalidate at most every four minutes and 10 seconds
 export default async function OrderInfo() {
-  const orderData = await getAllOrders();
+  const session = await auth();
+  const orderData = await getAllOrders(session.user.id);
   console.log(orderData, "orderdata");
 
   // const { cartdata } = useApp();

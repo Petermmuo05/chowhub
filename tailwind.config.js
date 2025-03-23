@@ -5,6 +5,9 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  compilerOptions: {
+    types: ["node", "next", "next/types/global"],
+  },
   theme: {
     extend: {
       backgroundImage: {

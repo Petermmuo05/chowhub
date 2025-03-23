@@ -2,9 +2,15 @@ import Image from "next/image";
 import { Inter_font } from "../page";
 import TrendingUp from "../../public/trendingup.svg";
 import Threedots from "../../public/threedots.svg";
+import {
+  getMostOrderedMeal,
+  getNumberofCustomers,
+  getTotalForStatus,
+} from "@/_lib/analytics";
 
-export default function DashboardAnalytics({OrderData}) {
-  const orderlength=OrderData.length
+export default function DashboardAnalytics({ OrderData }) {
+  const orderlength = OrderData.length;
+  console.log(getMostOrderedMeal(OrderData));
   return (
     <div className="grid grid-cols-4 gap-3 trans-range:gap-1 max-800:grid-cols-2 trans-range:grid-cols-3 pb-3 px-0 w-full">
       <div className="w-full flex flex-col p-3 px-6 max-sm:px-1 h-[120px] max-sm:h-[100px] text-poster rounded-lg justify-between bg-gray-950">
@@ -14,7 +20,7 @@ export default function DashboardAnalytics({OrderData}) {
         </div>
         <div className="flex flex-row justify-between items-center">
           <span className="text-[45px] font-bold text-poster max-sm:text-[40px] trans-range:text-[40px]">
-            1,390
+            {getNumberofCustomers(OrderData)}
           </span>
           <div className="flex items-center gap-1 h-fit px-1 py-0 justify-center rounded-lg  bg-gray-600 font-bold text-[12px] text-white">
             <Image
@@ -47,12 +53,12 @@ export default function DashboardAnalytics({OrderData}) {
       </div>
       <div className="w-full flex flex-col p-3 px-6 max-sm:px-1 h-[120px] max-sm:h-[100px] text-poster rounded-lg justify-between bg-gray-950">
         <div className="flex flex-row justify-between text-[14px] max-sm:px-2 items-center">
-          <span>Total Customers</span>
+          <span>Placed Orders</span>
           <Image src={Threedots} alt="threedots" className="h-[17px]" />{" "}
         </div>
         <div className="flex flex-row justify-between items-center">
           <span className="text-[45px] font-bold text-poster max-sm:text-[40px]">
-            1,390
+            {getTotalForStatus(OrderData, "placed")}
           </span>
           <div className="flex items-center gap-1 h-fit px-1 py-0 justify-center rounded-lg  bg-gray-600 font-bold text-[12px] text-white">
             <Image
@@ -66,12 +72,12 @@ export default function DashboardAnalytics({OrderData}) {
       </div>
       <div className="w-full flex flex-col p-3 px-6 max-sm:px-1 h-[120px] max-sm:h-[100px] text-poster rounded-lg justify-between bg-gray-950">
         <div className="flex flex-row justify-between text-[14px] max-sm:px-2 items-center">
-          <span>Total Customers</span>
+          <span>Fulfilled Orders</span>
           <Image src={Threedots} alt="threedots" className="h-[17px]" />{" "}
         </div>
         <div className="flex flex-row justify-between items-center">
           <span className="text-[45px] font-bold text-poster max-sm:text-[40px]">
-            1,390
+            {getTotalForStatus(OrderData, "fulfilled")}
           </span>
           <div className="flex items-center gap-1 h-fit px-1 py-0 justify-center rounded-lg  bg-gray-600 font-bold text-[12px] text-white">
             <Image

@@ -41,6 +41,9 @@ export default function ProfileMenu({ session }) {
         // />
         <Link
           href="/login"
+          onClick={(e) => {
+            setisMenuOpen(true);
+          }}
           className={`cool-button text-[#333333] shadow-sm font-semibold w-fit text-[16px] px-8 py-2  max-sm:text-center max-sm:text-[12px] max-sm:px-[4vw] max-sm:py-2 bg-[#FF8C00] rounded-[25px] `}
         >
           Get Started

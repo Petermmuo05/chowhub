@@ -9,12 +9,13 @@ import { useEffect } from "react";
 import { deleteSingleMeal, updateMeals } from "@/_lib/actions";
 
 export default function MealForm({ categories }) {
-  const { setMealFormData, mealFormData, setSubMealFormData } = useApp();
+  const { setMealFormData, mealFormData, subMealFormData, setSubMealFormData } =
+    useApp();
   function isEmptyObject(obj) {
     return Object.keys(obj).length === 0;
   }
 
-  const { name, id, price, description, meal_image, category_id } =
+  const { name, id, price, description, meal_image, category_id, SubMeal } =
     mealFormData;
   const {
     register,
@@ -36,16 +37,16 @@ export default function MealForm({ categories }) {
     reset(mealFormData);
   }, [reset, mealFormData]);
 
-  async function onSubmit(formdata, event) {
-    event.preventDefault();
-    const image =
-      typeof formdata.meal_image === "string"
-        ? formdata.meal_image
-        : formdata.meal_image[0];
-    const newdata = { ...formdata, meal_image: image };
-    console.log(newdata);
-    // const updated = await updateMeals(formdata);
-  }
+  // async function onSubmit(formdata, event) {
+  //   event.preventDefault();
+  //   const image =
+  //     typeof formdata.meal_image === "string"
+  //       ? formdata.meal_image
+  //       : formdata.meal_image[0];
+  //   const newdata = { ...formdata, meal_image: image };
+  //   console.log(newdata);
+  //   // const updated = await updateMeals(formdata);
+  // }
 
   async function handleCallDelete(id) {
     try {
@@ -109,41 +110,61 @@ export default function MealForm({ categories }) {
               <input type="file" {...register("file_data")} accept=".avif" />
               <input type="text" {...register("meal_image")} hidden />
             </div>
-            <span className="font-semibold mt-3">Sub-Meals:</span>
 
             {/* sub meals section You have to add scroll to this div */}
-            <div className="w-full flex flex-col  ">
-              <div
-                onClick={() => setSubMealFormData({})}
-                className="flex flex-row font-medium items-center justify-between border-[#333333] border px-2 bg-[#FFFDD0] py-[2px] rounded-xl cool-s-button"
-              >
-                <div className="flex flex-row font-medium items-center gap-1">
-                  <div className="flex justify-center  items-center rounded-full overflow-hidden">
+            {SubMeal && (
+              <>
+                <span className="font-semibold mt-3">Sub-Meals:</span>
+
+                <div className="w-full flex flex-col h-[115px] overflow-auto  ">
+                  {SubMeal.map((data) => {
+                    const { meal_image, name, price } = data;
+                    return (
+                      <div
+                        onClick={() => setSubMealFormData(data)}
+                        className="flex flex-row font-medium items-center justify-between border-[#333333] border px-2 bg-[#FFFDD0] py-[2px] rounded-xl cool-s-button"
+                      >
+                        <div className="flex flex-row font-medium items-center gap-1">
+                          <div className="flex justify-center  items-center rounded-full overflow-hidden">
+                            <Image
+                              src={meal_image}
+                              width={35}
+                              height={35}
+                              className="h-[35px]"
+                              alt="MainImage"
+                            />
+                          </div>
+                          <span className="">name</span>
+                        </div>
+                        <span className="">#{price}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="w-full flex flex-row justify-end mt-2">
+                  <div
+                    onClick={() =>
+                      setSubMealFormData({
+                        name: "",
+                        price: "",
+                        minQty: 1,
+                        id: "",
+                        meal_id: id,
+                      })
+                    }
+                    className="px-5 py-2 bg-[#FFFDD0] text-[#32CD32] cool-button font-bold text-[12px] rounded-xl items-center flex flex-row justify-center"
+                  >
                     <Image
-                      src={MainImage}
-                      className="w-[35px] h-[35px]"
+                      src={Add}
+                      className="w-[14px] h-[14px]"
                       alt="MainImage"
                     />
+                    <span> Add Sub Meal</span>
                   </div>
-                  <span className="">Fried Eggs</span>
                 </div>
-                <span className="">#5000</span>
-              </div>
-            </div>
+              </>
+            )}
             {/*end of sub meals section */}
-            <div className="w-full flex flex-row justify-end mt-2">
-              <div
-                onClick={() => setSubMealFormData({})}
-                className="px-5 py-2 bg-[#FFFDD0] text-[#32CD32] cool-button font-bold text-[12px] rounded-xl items-center flex flex-row justify-center"
-              >
-                <Image
-                  src={Add}
-                  className="w-[14px] h-[14px]"
-                  alt="MainImage"
-                />
-                <span> Add Sub Meal</span>
-              </div>
-            </div>
           </div>
           <div className="flex w-full px-3 absolute bottom-2 centerX flex-row items-center justify-between">
             <div

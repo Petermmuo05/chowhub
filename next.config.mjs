@@ -1,18 +1,19 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "ijlsuhslxonjiszlebem.supabase.co",
+        hostname: "snmankwgupvlugjehlte.supabase.co",
         port: "",
-        pathname: "/storage/v1/object/public/Restaurant/**",
+        pathname: "/storage/v1/object/sign/Restaurant/**",
       },
       {
         protocol: "https",
-        hostname: "ijlsuhslxonjiszlebem.supabase.co",
+        hostname: "snmankwgupvlugjehlte.supabase.co",
         port: "",
-        pathname: "/storage/v1/object/public/Food_images/**",
+        pathname: "/storage/v1/object/sign/Food_images/**",
       },
     ],
   },
